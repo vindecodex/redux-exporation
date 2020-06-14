@@ -1,17 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import store from './store';
+import { todoAdded, todoRemoved, todoDone } from './actionCreator';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const unsubscribe = store.subscribe(() => {
+	console.log("Update!!!", store.getState());
+})
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+store.dispatch(todoAdded('study react'));
+store.dispatch(todoAdded('study redux'));
+store.dispatch(todoAdded('study next'));
+store.dispatch(todoAdded('study anyhting'));
+store.dispatch(todoDone(2));
+store.dispatch(todoRemoved(1))
