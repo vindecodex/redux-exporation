@@ -1,13 +1,15 @@
-import store from './store';
-import { todoAdded, todoRemoved, todoDone } from './actionCreator';
+import storeConfiguration from './store/storeConfiguration';
+import * as actions from './store/todo';
+
+const store = storeConfiguration();
 
 const unsubscribe = store.subscribe(() => {
 	console.log("Update!!!", store.getState());
 })
 
-store.dispatch(todoAdded('study react'));
-store.dispatch(todoAdded('study redux'));
-store.dispatch(todoAdded('study next'));
-store.dispatch(todoAdded('study anyhting'));
-store.dispatch(todoDone(2));
-store.dispatch(todoRemoved(1))
+store.dispatch(actions.todoAdded('study react'));
+store.dispatch(actions.todoAdded('study redux'));
+store.dispatch(actions.todoAdded('study next'));
+store.dispatch(actions.todoAdded('study anyhting'));
+store.dispatch(actions.todoDone(2));
+store.dispatch(actions.todoRemoved(1));
