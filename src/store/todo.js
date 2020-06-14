@@ -1,28 +1,9 @@
-// named past tense because actions already done
-// ACTION TYPE
-const TODO_ADDED = 'todoAdded';
-const TODO_REMOVED = 'todoRemoved';
-const TODO_DONE = 'todoDone';
+import { createAction } from '@reduxjs/toolkit';
 
 // ACTION CREATORS
-export const todoAdded = title => ({
-	type: TODO_ADDED,
-	payload: {
-		title
-	}
-});
-
-export const todoRemoved = id => ({
-	type: TODO_REMOVED,
-	payload: {
-		id
-	}
-});
-
-export const todoDone = id => ({
-	type: TODO_DONE,
-	payload: { id }
-});
+export const todoAdded = createAction('todoAdded');
+export const todoRemoved = createAction('todoRemoved');
+export const todoDone = createAction('todoDone');
 
 // ONLY THE REDUCER SHOULD BE EXPORTED IN DEFAULT
 // REDUCER
@@ -30,7 +11,7 @@ let id = 0;
 const initialState = [];
 export default function reducer(state = initialState,action) {
 	switch(action.type) {
-		case TODO_ADDED:
+		case todoAdded.type:
 			return [
 				...state,
 				{
@@ -39,9 +20,9 @@ export default function reducer(state = initialState,action) {
 					status: true
 				}
 			];
-		case TODO_REMOVED:
+		case todoRemoved.type:
 			return state.filter(todo => todo.id !== action.payload.id);
-		case TODO_DONE:
+		case todoDone.type:
 			return state.map(todo => 
 				todo.id !== action.payload.id ? todo : {...todo, status: false}
 			);
