@@ -10,5 +10,7 @@ module.exports = {
 		contentBase: path.join(__dirname, "dist"),
 		port: 9001
 	},
-	mode: "development"
+	mode: "development",
+	// used in debugging
+	devtool: "source-map"
 }
