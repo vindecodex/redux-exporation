@@ -2,9 +2,6 @@ import { createStore } from 'redux';
 import reducer from './todo';
 
 // used in debugging
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
 
-export default function storeConfiguration() {
-	const store = createStore(reducer, devToolsEnhancer({ trace: true }));
-	return store;
-}
+export default function() {return configureStore({ reducer });}
