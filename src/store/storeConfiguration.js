@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import reducer from './reducer';
 import logger from './middleware/logger';
+import api from './middleware/api';
 // import myThunk from './middleware/myThunk';
 
 // used in debugging
@@ -11,5 +12,6 @@ export default function() {return configureStore({
 	middleware: [
 		...getDefaultMiddleware(),
 		logger('CONSOLE'),
+		api
 	]
 });}
