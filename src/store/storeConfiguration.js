@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import reducer from './todo';
+import reducer from './reducer';
 
 // used in debugging
 import { configureStore } from '@reduxjs/toolkit';
