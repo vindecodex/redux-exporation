@@ -1,5 +1,5 @@
 import storeConfiguration from './store/storeConfiguration';
-import { todoAdded, todoRemoved, todoDone } from './store/todos';
+import { todoAdded, todoRemoved, todoDone, todoDoneSelector } from './store/todos';
 import { userAdded } from './store/users';
 
 const store = storeConfiguration();
@@ -15,3 +15,4 @@ store.dispatch(todoAdded({ title: 'study anyhting' }));
 store.dispatch(userAdded({ name: 'vincent' }));
 store.dispatch(todoDone({ id: 2 }));
 store.dispatch(todoRemoved({ id: 1 }));
+console.log(todoDoneSelector(store.getState()));
