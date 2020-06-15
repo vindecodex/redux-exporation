@@ -28,3 +28,6 @@ const stateIndex = todo.findIndex(todo => todo.id === action.payload.id);
 
 export const { todoAdded, todoRemoved, todoDone } = slice.actions;
 export default slice.reducer;
+
+// Selector function
+export const todoDoneSelector = state => state.entities.todos.filter(todo => !todo.status);
