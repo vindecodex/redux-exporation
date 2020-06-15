@@ -13,18 +13,21 @@ const slice = createSlice({
 			id: ++id,
 			title: action.payload.title,
 			status: true
-		})
+		});
 		},
 		todoRemoved: function(todo, action) {
-const stateIndex = todo.findIndex(todo => todo.id === action.payload.id)
-		todo.splice(stateIndex,1)
+const stateIndex = todo.findIndex(todo => todo.id === action.payload.id);
+		todo.splice(stateIndex,1);
 		},
 		todoDone: function(todo, action) {
-const stateIndex = todo.findIndex(todo => todo.id === action.payload.id)
-		todo[stateIndex].status = false
+const stateIndex = todo.findIndex(todo => todo.id === action.payload.id);
+		todo[stateIndex].status = false;
 		}
 	}
-})
+});
 
 export const { todoAdded, todoRemoved, todoDone } = slice.actions;
 export default slice.reducer;
+
+// Selector function
+export const todoDoneSelector = state => state.entities.todos.filter(todo => !todo.status);
