@@ -8,7 +8,7 @@ const myThunk = store => next => action => {
 	if (typeof action === "function") {
 		// we can destructure store so that we can avoid dot notation.
 		// but for this example i just use the dot notation.
-		action(store.getState, store.dispatch);
+		action(store.dispatch, store.getState);
 	} else {
 		next(action);
 	}
