@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.5",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8"
   }
