@@ -1,30 +1,30 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// ACTION CREATORS
-export const todoAdded = createAction('todoAdded');
-export const todoRemoved = createAction('todoRemoved');
-export const todoDone = createAction('todoDone');
-
-// ONLY THE REDUCER SHOULD BE EXPORTED IN DEFAULT
-// REDUCER
 let id = 0;
 const initialState = [];
-// createReducer accepts two arguments 1: initial state 2: object
-// key is the action creator type with a value of function the will manipulate the state
-export default createReducer(initialState, {
-	[todoAdded.type]: function(state, action) {
-		state.push({
+
+// With this method no need to create action creators
+const slice = createSlice({
+	name: "todo",
+	initialState,
+	reducers: {
+		todoAdded: function(todo, action) {
+		todo.push({
 			id: ++id,
 			title: action.payload.title,
 			status: true
 		})
-	},
-	[todoRemoved.type]: function(state, action) {
-		const stateIndex = state.findIndex(todo => todo.id === action.payload.id)
-		state.splice(stateIndex,1)
-	},
-	[todoDone.type]: function(state, action) {
-		const stateIndex = state.findIndex(todo => todo.id === action.payload.id)
-		state[stateIndex].status = false
+		},
+		todoRemoved: function(todo, action) {
+const stateIndex = todo.findIndex(todo => todo.id === action.payload.id)
+		todo.splice(stateIndex,1)
+		},
+		todoDone: function(todo, action) {
+const stateIndex = todo.findIndex(todo => todo.id === action.payload.id)
+		todo[stateIndex].status = false
+		}
 	}
 })
+
+export const { todoAdded, todoRemoved, todoDone } = slice.actions;
+export default slice.reducer;
