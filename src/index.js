@@ -4,7 +4,7 @@ import storeConfiguration from './store/storeConfiguration';
 import * as actions from './store/api';
 
 // REDUCERS
-import { todoAdded, todoRemoved, todoDone, todoDoneSelector } from './store/todos';
+import { todoAdded, todoRemoved, todoDone, todoDoneSelector, loadTodos } from './store/todos';
 import { userAdded } from './store/users';
 
 const store = storeConfiguration();
@@ -27,8 +27,4 @@ const unsubscribe = store.subscribe(() => {
 	// After we get the response we need to dispatch it
 	// dispatch(todoAdded(apiResp));
 // });
-store.dispatch(actions.apiRequestStarted({
-	url: '/todos',
-	onSuccess: actions.apiRequestSuccess.type,
-	onError: actions.apiRequestFailed.type
-}))
+store.dispatch(loadTodos());

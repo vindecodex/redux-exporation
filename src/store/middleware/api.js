@@ -13,9 +13,13 @@ const api = ({ dispatch }) => next => async action => {
 			baseURL: 'http://localhost:1234/api',
 			url
 		});
-		dispatch(actions.apiRequestSuccess({payload: resp.data}));
+		dispatch(actions.apiRequestSuccess(action.payload));
+		// serializing type of action
+		if (onSuccess) dispatch({type: onSuccess, payload: resp.data});
 	} catch(error) {
-		dispatch(actions.apiRequestFailed({payload: error.message}));
+		// serializing type of action
+		dispatch(actions.apiRequestFailed(error.message));
+		if (onError) dispatch({type: onError, payload: error.message});
 	}
 }
 

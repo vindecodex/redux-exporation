@@ -1,33 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { apiRequestStarted } from './api';
 
 let id = 0;
-const initialState = [];
 
 // With this method no need to create action creators
 const slice = createSlice({
 	name: "todo",
-	initialState,
+	initialState: {
+		list: [],
+		loading: false,
+		lastFetch: []
+	},
 	reducers: {
+		// with createSlice this action will be named space with todo/requestReceived
+		requestReceived: function(todo, action) {
+			todo.list = action.payload
+		},
 		todoAdded: function(todo, action) {
-		todo.push({
+		todo.list.push({
 			id: ++id,
 			title: action.payload.title,
 			status: true
 		});
 		},
 		todoRemoved: function(todo, action) {
-const stateIndex = todo.findIndex(todo => todo.id === action.payload.id);
-		todo.splice(stateIndex,1);
+const stateIndex = todo.list.findIndex(todo => todo.id === action.payload.id);
+		todo.list.splice(stateIndex,1);
 		},
 		todoDone: function(todo, action) {
-const stateIndex = todo.findIndex(todo => todo.id === action.payload.id);
-		todo[stateIndex].status = false;
+const stateIndex = todo.list.findIndex(todo => todo.id === action.payload.id);
+		todo.list[stateIndex].status = false;
 		}
 	}
 });
 
-export const { todoAdded, todoRemoved, todoDone } = slice.actions;
+export const { todoAdded, todoRemoved, todoDone, requestReceived } = slice.actions;
 export default slice.reducer;
+
+export const loadTodos = () => apiRequestStarted({
+	url: '/todos',
+	onSuccess: requestReceived.type
+});
 
 // Selector function
 export const todoDoneSelector = state => state.entities.todos.filter(todo => !todo.status);
