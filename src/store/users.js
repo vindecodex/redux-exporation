@@ -30,5 +30,5 @@ const slice = createSlice({
 	}
 });
 
-export const { userAdded } = slice.actions;
+export const { userAdded, userRemoved } = slice.actions;
 export default slice.reducer;
