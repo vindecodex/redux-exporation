@@ -30,6 +30,9 @@ const slice = createSlice({
 			status: true
 		});
 		},
+		addTodo: function(todo, action) {
+			todo.list.push(action.payload);
+		},
 		todoRemoved: function(todo, action) {
 const stateIndex = todo.list.findIndex(todo => todo.id === action.payload.id);
 		todo.list.splice(stateIndex,1);
@@ -41,8 +44,15 @@ const stateIndex = todo.list.findIndex(todo => todo.id === action.payload.id);
 	}
 });
 
-export const { todoAdded, todoRemoved, todoDone, requestReceived, requestFailed, onRequest } = slice.actions;
+export const { todoAdded, todoRemoved, addTodo, todoDone, requestReceived, requestFailed, onRequest } = slice.actions;
 export default slice.reducer;
+
+export const addTodoServer = (todo) => apiRequestStarted({
+	url: '/todos',
+	method: 'post',
+	onSuccess: addTodo.type,
+	data: todo
+});
 
 export const loadTodos = () => apiRequestStarted({
 	url: '/todos',
