@@ -4,7 +4,7 @@ import storeConfiguration from './store/storeConfiguration';
 import * as actions from './store/api';
 
 // REDUCERS
-import { todoAdded, todoRemoved, todoDone, todoDoneSelector, loadTodos } from './store/todos';
+import { todoAdded, addTodoServer, todoRemoved, todoDone, todoDoneSelector, loadTodos } from './store/todos';
 import { userAdded } from './store/users';
 
 const store = storeConfiguration();
@@ -28,3 +28,9 @@ const unsubscribe = store.subscribe(() => {
 	// dispatch(todoAdded(apiResp));
 // });
 store.dispatch(loadTodos());
+store.dispatch(addTodoServer({
+	id: 6,
+	title: 'todo 6',
+	status: true
+}));
+
