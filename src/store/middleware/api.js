@@ -4,9 +4,13 @@ import * as actions from '../api';
 const api = ({ dispatch }) => next => async action => {
 	if (action.type !== actions.apiRequestStarted.type) return next(action);
 
-	next(action);
+	const { url, onRequest, onSuccess, onError } = action.payload;
+
+	if(onRequest) dispatch({type: onRequest});
 
 	const { url, onSuccess, onError, data, method } = action.payload;
+	next(action);
+
 
 	try {
 		const resp = await axios.request({

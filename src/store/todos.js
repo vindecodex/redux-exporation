@@ -13,8 +13,15 @@ const slice = createSlice({
 	},
 	reducers: {
 		// with createSlice this action will be named space with todo/requestReceived
+		onRequest: function(todo, action) {
+			todo.loading = true;
+		},
 		requestReceived: function(todo, action) {
 			todo.list = action.payload
+			todo.loading = false;
+		},
+		requestFailed: function(todo, action) {
+			todo.loading = false;
 		},
 		todoAdded: function(todo, action) {
 		todo.list.push({
@@ -37,7 +44,7 @@ const stateIndex = todo.list.findIndex(todo => todo.id === action.payload.id);
 	}
 });
 
-export const { todoAdded, todoRemoved, addTodo, todoDone, requestReceived } = slice.actions;
+export const { todoAdded, todoRemoved, addTodo, todoDone, requestReceived, requestFailed, onRequest } = slice.actions;
 export default slice.reducer;
 
 export const addTodoServer = (todo) => apiRequestStarted({
@@ -49,7 +56,9 @@ export const addTodoServer = (todo) => apiRequestStarted({
 
 export const loadTodos = () => apiRequestStarted({
 	url: '/todos',
-	onSuccess: requestReceived.type
+	onRequest: onRequest.type,
+	onSuccess: requestReceived.type,
+	onError: requestFailed.type
 });
 
 // Selector function
