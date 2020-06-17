@@ -6,12 +6,14 @@ const api = ({ dispatch }) => next => async action => {
 
 	next(action);
 
-	const { url, onSuccess, onError } = action.payload;
+	const { url, onSuccess, onError, data, method } = action.payload;
 
 	try {
 		const resp = await axios.request({
 			baseURL: 'http://localhost:1234/api',
-			url
+			url,
+			data,
+			method
 		});
 		dispatch(actions.apiRequestSuccess(action.payload));
 		// serializing type of action
